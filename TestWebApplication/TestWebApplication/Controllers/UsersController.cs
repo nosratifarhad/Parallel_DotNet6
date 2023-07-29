@@ -19,11 +19,17 @@ namespace TestWebApplication.Controllers
         public async Task<IActionResult> GetProducts()
         {
 
-            Parallel.For(1, 50, i => _userRepository.AddUser(new Dtos.User() { Id = 1 }));
-            Parallel.For(1, 50, i => _userRepository.AddUser(new Dtos.User() { Id = 1 }));
-            Parallel.For(1, 50, i => _userRepository.AddUser(new Dtos.User() { Id = 1 }));
+            //Parallel.For(1, 10, i => _userRepository.AddUser(new Dtos.User() { Id = 1 }));
+            Parallel.ForEach(Enumerable.Range(1, 10), i => _userRepository.AddUser(new Dtos.User() { Id = 1 }));
 
-            var rere = _userRepository.GetAllUser();
+            //var item = _userRepository.GetUser(2);
+            //Console.WriteLine(item?.Id);
+
+            var items = _userRepository.GetAllUser();
+
+            int i = 0;
+            foreach (var item in items)
+                Console.WriteLine($"{i++} {item.Id}");
 
             return Ok();
         }
