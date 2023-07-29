@@ -6,11 +6,26 @@ namespace TestWebApplication.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly List<User> _users = new();
-
-        public void AddUser(User User)
+        private static readonly object LockCount = new object();
+        public void AddUser(User user)
         {
-            _users.Add(User);
-            Console.WriteLine($"Add User {_users.Count()}");
+
+            try
+            {
+                Thread.Sleep(1000);
+
+                lock (LockCount)
+                {
+                    user.Id++;
+
+                    _users.Add(user);
+                }
+                Console.WriteLine($"Add User {_users.Count()}");
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine(exp.Message);
+            }
         }
 
         public User? GetUser(int id)
