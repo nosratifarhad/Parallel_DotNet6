@@ -7,7 +7,8 @@ namespace TestWebApplication.Repositories
     {
         private readonly List<User> _users = new();
         private static readonly object LockCount = new object();
-        public void AddUser(User user)
+
+        public void AddUserWithLock(User user)
         {
 
             try
@@ -19,8 +20,26 @@ namespace TestWebApplication.Repositories
                     user.Id++;
 
                     _users.Add(user);
+                    //Console.WriteLine($"Add To User");
                 }
-                Console.WriteLine($"Add User {_users.Count()}");
+                //Console.WriteLine($"Count User {_users.Count()}");
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine(exp.Message);
+            }
+        }
+
+        public void AddUserWithOutLock(User user)
+        {
+
+            try
+            {
+                Thread.Sleep(1000);
+
+                user.Id++;
+
+                _users.Add(user);
             }
             catch (Exception exp)
             {
