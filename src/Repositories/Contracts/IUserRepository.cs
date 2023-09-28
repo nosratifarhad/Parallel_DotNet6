@@ -8,7 +8,9 @@ namespace TestWebApplication.Repositories.Contracts
 
         List<User> GetAllUser();
 
-        void AddUser(User User);
+        void AddUserWithLock(User User);
+
+        void AddUserWithOutLock(User User);
 
     }
 }
