@@ -15,7 +15,7 @@ namespace TestWebApplication.Controllers
             this._userRepository = userRepository;
         }
 
-        [HttpGet("/api/products/AddUserWithLock")]
+        [HttpGet("/api/products/add-user-with-lock")]
         public async Task<IActionResult> AddUserWithLock()
         {
 
@@ -43,7 +43,7 @@ namespace TestWebApplication.Controllers
             return Ok();
         }
 
-        [HttpGet("/api/products/AddUserWithOutLock")]
+        [HttpGet("/api/products/add-user-without-lock")]
         public async Task<IActionResult> AddUserWithOutLock()
         {
 
